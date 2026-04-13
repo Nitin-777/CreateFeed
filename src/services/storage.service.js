@@ -1,10 +1,17 @@
 const { default: ImageKit } = require('@imagekit/nodejs');
-const ImageKit= require('@imagekit/nodejs');
+
+require('dotenv').config();
 
 const imageKit=new ImageKit({
-    privateKey: "private_3tQAWnTw2kGEOvVgyE9D/jy9TX4="
+    privateKey: process.env.IMAGEKit_KEY
 })
 
-async function uploafFile(buffer){
-    n
+async function uploadFile(buffer){
+    const result= await imageKit.files.upload({
+        file: buffer.toString("base64"),
+        fileName:"image.jpg"
+    })
+    return result
 }
+
+module.exports=uploadFile;
