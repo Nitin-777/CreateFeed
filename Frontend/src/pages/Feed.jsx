@@ -1,9 +1,19 @@
-import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from "axios"
+
+
 
 const Feed = () => {
  
-    const[posts,setposts] =useState([]);
+    const[posts,setPosts] =useState([]);
+
+    useEffect(() => {
+       axios.get("http://localhost:3000/posts")
+       .then((res) => {
+        setPosts(res.data.posts)
+       })
+
+    },[])
 
   return (
    <section className='feed-section'>
@@ -11,8 +21,8 @@ const Feed = () => {
         posts.length > 0 ? (
             posts.map((posts) => (
                  <div key={posts._id} className='post-card'>
-                    <img src={posts.img} alt={posts.caption} />
-                    <p>{posts.caption}</p>
+                    <img src={posts.image} alt={posts.caption} />
+                    <h3>{posts.caption}</h3>
                  </div>
             ))
         ) : (
